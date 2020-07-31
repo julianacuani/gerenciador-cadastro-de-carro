@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './Home';
+import List from './List';
+import Cadastro from './Cadastro';
+import NovoIdcarro from './NovoIdcarro';
+
+class App extends React.Component {
+    render() {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    <h1 className="meu-app">Gerencia do cadastro de carros</h1>
+
+                    <Route path="/" exact component={Home}></Route>
+
+                    <p> <Link to="/">Início</Link> </p>
+                    <p> <Link to="/lista">Veja lista de carros cadastrados</Link> </p>
+                    <p> <Link to="/cars">Cadastre novo carro</Link> </p>
+                    <p> <Link to="/cars/{id}">Cadastre novo id carro</Link> </p>
+
+                    <Route path="/lista" component={List}></Route>
+                    <Route path="/cars" component={Cadastro}></Route>
+                    <Route path="/cars/{id}" component={NovoIdcarro}></Route>
+
+                </div>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default App;
