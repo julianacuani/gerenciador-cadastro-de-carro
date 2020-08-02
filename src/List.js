@@ -8,45 +8,45 @@ class List extends React.Component {
     };
 
     componentDidMount() {
-       axios.get('http://157.230.213.199:3000/api/cars')
+        axios.get('http://157.230.213.199:3000/api/cars')
             .then(res => {
-             console.log(res)
-             this.setState({
-             carros: res.data
-            });
-        })
+                // console.log(res)
+                this.setState({
+                    carros: res.data
+                });
+            })
     }
 
     render() {
 
         let content = <p> Carregando... </p>
 
-            if(this.state.carros.lenght !==0){
-                content = (  <ul>
-                    {this.state.carros.map(item => (
-                        <li key={item.id}>
+        if (this.state.carros.lenght !== 0) {
+            content = (<ul>
+                {this.state.carros.map((item, index) => (
+                    <li key={index}>
 
-                            <p><b>ID:</b>{item._id}</p>
-                            <p><b>Nome:</b> {item.title}</p>
-                            <p><b>Marca:</b> {item.brand}</p>
-                            <p><b>Preço:</b> {item.price}</p>
-                            <p><b>Idade:</b> {item.age}</p>
+                        <p><b>ID:</b>{item._id}</p>
+                        <p><b>Nome:</b> {item.title}</p>
+                        <p><b>Marca:</b> {item.brand}</p>
+                        <p><b>Preço:</b> {item.price}</p>
+                        <p><b>Idade:</b> {item.age}</p>
 
                         <Link to={{
-                            pathname:`./car/${item._id}`,
+                            pathname: `./cars/${item._id}`,
                             data: item
                         }}>Editar </Link>
-                        </li>
-                    ))}
+                    </li>
+                ))}
 
-                </ul>)
-            }
-        
+            </ul>)
+        }
+
         return (
             <div>
                 <h1>Lista de carros</h1>
-               {content}
-               
+                {content}
+
             </div>
         );
     }

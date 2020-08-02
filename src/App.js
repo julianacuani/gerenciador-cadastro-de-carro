@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import './App.css';
 
+import Cadastro from './Cadastro';
 import Home from './Home';
 import List from './List';
-import Cadastro from './Cadastro';
 import NovoIdcarro from './NovoIdcarro';
 
 class App extends React.Component {
@@ -20,11 +20,11 @@ class App extends React.Component {
                     <p> <Link to="/">Início</Link> </p>
                     <p> <Link to="/lista">Veja lista de carros cadastrados</Link> </p>
                     <p> <Link to="/cars">Cadastre novo carro</Link> </p>
-                    <p> <Link to="/cars/{id}">Cadastre novo id carro</Link> </p>
+                    <p> <Link to="/cars/123">Cadastre novo id carro</Link> </p>
 
-                    <Route path="/lista" component={List}></Route>
-                    <Route path="/cars" component={Cadastro}></Route>
-                    <Route path="/cars/{id}" component={NovoIdcarro}></Route>
+                    <Route exact path="/lista" component={List}></Route>
+                    <Route exact path="/cars" component={Cadastro}></Route>
+                    <Route exact path="/cars/:id" component={NovoIdcarro}></Route>
 
                 </div>
             </BrowserRouter>
