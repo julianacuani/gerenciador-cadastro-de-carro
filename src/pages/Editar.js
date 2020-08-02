@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import FormField from './FormField';
+import FormField from '../components/FormField';
 
-export default class NovoIdcarro extends React.Component {
+class NovoIdcarro extends React.Component {
 
   constructor(props) {
     super(props)
@@ -95,10 +95,12 @@ export default class NovoIdcarro extends React.Component {
           />
 
           <button>
-            Cadastrar
+            Editar
          </button>
         </form>
       </div>
     )
   }
 }
+
+export default NovoIdcarro;
