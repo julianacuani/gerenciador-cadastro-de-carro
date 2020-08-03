@@ -14,7 +14,6 @@ class Card extends React.Component {
    deletar() {
       axios.delete(`http://157.230.213.199:3000/api/cars/${this.props.carro._id}`)
          .then(res => {
-            console.log(res)
             this.fechaModal()
             this.props.removeCarro(this.props.carro._id)
          });
@@ -35,11 +34,11 @@ class Card extends React.Component {
                <div className="card-body">
                   <h5 className="card-title">{this.props.carro.title}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">{this.props.carro.brand}</h6>
-                  <p className="card-text">  Preço {this.props.carro.price} </p>
-                  <p className="card-text"> Ano {this.props.carro.age} </p>
+                  <p className="card-text"> Preço: {this.props.carro.price} </p>
+                  <p className="card-text"> Ano: {this.props.carro.age} </p>
                   <div className="d-flex justify-content-around">
-                     <Link to={{pathname: `./editar/${this.props.carro._id}`, data:this.props.carro}} className="card-link">
-                        <Button variant="dark" >  Editar </Button>
+                     <Link to={{ pathname: `./editar/${this.props.carro._id}`, data: this.props.carro }} className="card-link">
+                        <Button variant="dark" > Editar </Button>
                      </Link>
                      <Button variant="danger" onClick={this.abreModal.bind(this)}> Deletar </Button>
                   </div>

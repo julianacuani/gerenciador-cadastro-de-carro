@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
 import FormField from '../components/FormField';
 import { useForm } from "react-hook-form";
 
-
-
 function Cadastro() {
+  let history = useHistory()
   const { register, handleSubmit, errors } = useForm();
 
   const valoresIniciais = {
@@ -16,6 +18,9 @@ function Cadastro() {
   }
   const [carros] = useState([]);
   const [carro, setCarro] = useState(valoresIniciais);
+  const [showModal, setModal] = useState(false);
+  const handleCloseModal = () => { setModal(false); history.push("/") };
+  const handleShowModal = () => setModal(true); // Função que abre o modal
 
 
   function setValue(chave, valor) {
@@ -36,17 +41,15 @@ function Cadastro() {
 
     axios.post('http://157.230.213.199:3000/api/cars', carro)
       .then(res => {
-        console.log(res)
         setCarro(valoresIniciais)
+        handleShowModal()
       });
   }
-
-
   return (
     <div className="container">
-      <h1>Cadastro de carro: {carro.nome}</h1>
+      <h1>Cadastrar carro {carro.nome}</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row d-flex justify-content-center">
           <div className="col-4">
             <FormField
@@ -56,8 +59,8 @@ function Cadastro() {
               value={carro.title}
               onChange={handleChange}
               validation={(register({
-               required:true
-              }))} 
+                required: true
+              }))}
               errors={errors.title}
               validationMsg={{
                 required: "Campo obrigatório"
@@ -67,84 +70,84 @@ function Cadastro() {
         </div>
         <div className="row d-flex justify-content-center">
           <div className="col-4">
-          <FormField
-            label="Marca"
-            type="text"
-            name="brand"
-            value={carro.brand}
-            onChange={handleChange}
-            validation={(register({
-              required:true
-             }))} 
-             errors={errors.brand}
-             validationMsg={{
-               required: "Campo obrigatório"
-             }}
-          />
+            <FormField
+              label="Marca"
+              type="text"
+              name="brand"
+              value={carro.brand}
+              onChange={handleChange}
+              validation={(register({
+                required: true
+              }))}
+              errors={errors.brand}
+              validationMsg={{
+                required: "Campo obrigatório"
+              }}
+            />
+          </div>
         </div>
+
+        <div className="row d-flex justify-content-center">
+          <div className="col-4">
+            <FormField
+              label="Preço"
+              type="number"
+              name="price"
+              value={carro.price}
+              onChange={handleChange}
+              validation={(register({
+                required: true
+              }))}
+              errors={errors.price}
+              validationMsg={{
+                required: "Campo obrigatório"
+              }}
+            />
+          </div>
         </div>
 
-      <div className="row d-flex justify-content-center">
-        <div className="col-4">
-        <FormField
-          label="Preço"
-          type="number"
-          name="price"
-          value={carro.price}
-          onChange={handleChange}
-          validation={(register({
-            required:true
-           }))} 
-           errors={errors.price}
-           validationMsg={{
-             required: "Campo obrigatório"
-           }}
-        />
-      </div>
-    </div>
+        <div className="row d-flex justify-content-center">
+          <div className="col-4">
+            <FormField
+              label="Ano"
+              type="number"
+              name="age"
+              value={carro.age}
+              onChange={handleChange}
+              validation={(register({
+                required: true,
+                min: 1885,
+                max: new Date().getFullYear()
 
-    <div className="row d-flex justify-content-center">
-      <div className="col-4">
-      <FormField
-        label="Ano"
-        type="number"
-        name="age"
-        value={carro.age}
-        onChange={handleChange}
-        validation={(register({
-          required:true,
-          min: 1885,
-          max: new Date().getFullYear()
-
-         }))}
-         errors={errors.age}
-         validationMsg={{
-           required: "Campo obrigatório",
-           min: "Ano mínimo: 1885",
-           max: `Ano máximo: ${new Date().getFullYear()}`
-         }}
-      />
-    </div>
+              }))}
+              errors={errors.age}
+              validationMsg={{
+                required: "Campo obrigatório",
+                min: "Ano mínimo: 1885",
+                max: `Ano máximo: ${new Date().getFullYear()}`
+              }}
+            />
+          </div>
         </div >
         <div className="row d-flex justify-content-center">
           <div className="col-2 col-4 d-flex justify-content-end">
-    <button className="btn btn-dark">
-      Cadastrar
+            <button className="btn btn-dark">
+              Cadastrar
          </button>
-         </div>
-         </div>
+          </div>
+        </div>
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Editar</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Item cadastrado com sucesso</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleCloseModal}>
+              OK
+          </Button>
+          </Modal.Footer>
+        </Modal>
       </form >
-
-
-    <ul>
-      {carros.map((carro, indice) => {
-        return (
-          <li key={`${carro}${indice}`}>
-            {carro.nome}
-          </li>
-        )
-      })}
-    </ul>
     </div >
   )
 }

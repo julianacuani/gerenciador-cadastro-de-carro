@@ -11,15 +11,14 @@ class List extends React.Component {
     componentDidMount() {
         axios.get('http://157.230.213.199:3000/api/cars')
             .then(res => {
-                // console.log(res)
                 this.setState({
                     carros: res.data,
-                    loading:false
+                    loading: false
                 });
             })
     }
 
-    removeLista(id){
+    removeLista(id) {
         this.setState({
             carros: this.state.carros.filter(item => id !== item._id)
         })
@@ -32,9 +31,9 @@ class List extends React.Component {
         if (!this.state.loading) {
             content = (<div className="d-flex justify-content-center flex-wrap">
                 {this.state.carros.map((item, index) => (
-                    <Card carro ={item} removeCarro ={this.removeLista.bind(this)}/>
+                    <Card carro={item} removeCarro={this.removeLista.bind(this)} />
 
-            ))}
+                ))}
 
             </div>)
         }
