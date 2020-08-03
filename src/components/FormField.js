@@ -1,12 +1,13 @@
 import React from "react";
 
-function FormField({ label, type, name, value, onChange, validation, errors, validatiomesseger }) {
+class FormField extends React.Component{
 
-  const handleErrors = () =>{
-    console.log(errors)
-    if(errors){
-      if(errors.ref.id === name){
-        const msg= validatiomesseger[errors.type]
+    handleErrors() {
+      console.log(this.props.validationMsg)
+      console.log(this.props.errors)
+      if(this.props.errors){
+      if(this.props.errors.ref.id === this.props.name){
+        const msg= this.props.validationMsg[this.props.errors.type]
         return(
           <div className="error">
             {msg}
@@ -15,22 +16,24 @@ function FormField({ label, type, name, value, onChange, validation, errors, val
       }
     }
   }
+  render(){
   return (
     <div>
       <div className="form-group">
-        <label for={label}>{label}</label>
-        <input type={type}
+        <label for={this.props.label}>{this.props.label}</label>
+        <input type={this.props.type}
          className="form-control"
-          name={name}
-          id={name}
-          value={value}
-          onChange={onChange}
-          ref={validation} />
+          name={this.props.name}
+          id={this.props.name}
+          value={this.props.value}
+          onChange={this.props.onChange}
+          ref={this.props.validation} />
 
-         {handleErrors}
+         {this.handleErrors()}
       </div>
     </div>
   )
+  }
 }
 
 export default FormField;

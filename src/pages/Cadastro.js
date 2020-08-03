@@ -9,12 +9,12 @@ function Cadastro() {
   const { register, handleSubmit, errors } = useForm();
 
   const valoresIniciais = {
-    tittle: '',
+    title: '',
     brand: '',
     price: '',
     age: '',
   }
-  const [carros, setCarros] = useState([]);
+  const [carros] = useState([]);
   const [carro, setCarro] = useState(valoresIniciais);
 
 
@@ -59,7 +59,7 @@ function Cadastro() {
                required:true
               }))} 
               errors={errors.title}
-              validationmesenger={{
+              validationMsg={{
                 required: "Campo obrigatório"
               }}
             />
@@ -73,6 +73,13 @@ function Cadastro() {
             name="brand"
             value={carro.brand}
             onChange={handleChange}
+            validation={(register({
+              required:true
+             }))} 
+             errors={errors.brand}
+             validationMsg={{
+               required: "Campo obrigatório"
+             }}
           />
         </div>
         </div>
@@ -80,11 +87,18 @@ function Cadastro() {
       <div className="row d-flex justify-content-center">
         <div className="col-4">
         <FormField
-          label="preço"
-          type="text"
+          label="Preço"
+          type="number"
           name="price"
           value={carro.price}
           onChange={handleChange}
+          validation={(register({
+            required:true
+           }))} 
+           errors={errors.price}
+           validationMsg={{
+             required: "Campo obrigatório"
+           }}
         />
       </div>
     </div>
@@ -92,11 +106,23 @@ function Cadastro() {
     <div className="row d-flex justify-content-center">
       <div className="col-4">
       <FormField
-        label="idade"
-        type="text"
+        label="Ano"
+        type="number"
         name="age"
         value={carro.age}
         onChange={handleChange}
+        validation={(register({
+          required:true,
+          min: 1885,
+          max: new Date().getFullYear()
+
+         }))}
+         errors={errors.age}
+         validationMsg={{
+           required: "Campo obrigatório",
+           min: "Ano mínimo: 1885",
+           max: `Ano máximo: ${new Date().getFullYear()}`
+         }}
       />
     </div>
         </div >
