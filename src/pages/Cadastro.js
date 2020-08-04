@@ -96,11 +96,13 @@ function Cadastro() {
               value={carro.price}
               onChange={handleChange}
               validation={(register({
-                required: true
+                required: true,
+                min: 1
               }))}
               errors={errors.price}
               validationMsg={{
-                required: "Campo obrigatório"
+                required: "Campo obrigatório",
+                min: "Valor mínimo: 1"
               }}
             />
           </div>

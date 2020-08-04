@@ -20,7 +20,7 @@ class FormField extends React.Component {
         <div className="form-group">
           <label for={this.props.label}>{this.props.label}</label>
           <input type={this.props.type}
-            className="form-control"
+            className={this.handleErrors()?'form-control invalid':'form-control'}
             name={this.props.name}
             id={this.props.name}
             value={this.props.value}

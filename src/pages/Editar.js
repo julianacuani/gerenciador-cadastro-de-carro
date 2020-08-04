@@ -40,7 +40,6 @@ function Editar() {
   function getCarro(carroId) {
     axios.get(`http://157.230.213.199:3000/api/cars/${carroId}`)
       .then(res => {
-        console.log(res)
         setCarro(res.data)
       });
   }
@@ -118,11 +117,13 @@ function Editar() {
               value={carro.price}
               onChange={handleChange}
               validation={(register({
-                required: true
+                required: true,
+                min: 1
               }))}
               errors={errors.price}
               validationMsg={{
-                required: "Campo obrigatório"
+                required: "Campo obrigatório",
+                 min: "Valor mínimo: 1"
               }}
             />
           </div>

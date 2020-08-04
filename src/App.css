@@ -8,6 +8,14 @@
  border-width: 3px !important;
  width: 200px;
 }
+
+.invalid {
+  border-color: #dc3545 !important;
+}
+
+.error{
+  color:#dc3545;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
